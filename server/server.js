@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { testDbConnection } from "./src/config/pooldb.js";
 import authRoutes from "./src/routes/auth.route.js";
+import { apiLimiter } from "./src/middleware/rateLimiter.js";
 
 
 const PORT = process.env.PORT;
@@ -12,6 +13,7 @@ const app = express();
 // Middleware
 app.use(helmet());
 app.use(cookieParser());
+app.use(apiLimiter);
 app.use(express.json());
 
 // Routes
