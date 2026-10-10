@@ -1,0 +1,42 @@
+:root {
+  font-family: sans-serif;
+  color: #202124;
+  background: #fff;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 1rem;
+  color: #202124;
+  background: #fff;
+  color-scheme: light;
+}
+
+.app.dark {
+  color: #f1f3f4;
+  background: #202124;
+  color-scheme: dark;
+}
+
+.app a {
+  color: inherit;
+}
+
+.app,
+.app * {
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app,
+  .app * {
+    transition: none;
+  }
+}
