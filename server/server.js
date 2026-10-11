@@ -3,6 +3,7 @@ import "dotenv/config";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { testDbConnection } from "./src/config/pooldb.js";
+import { testNodeMailConnection } from "./src/config/nodemailer.js";
 import authRoutes from "./src/routes/auth.route.js";
 import { apiLimiter } from "./src/middleware/rateLimiter.js";
 
@@ -26,5 +27,6 @@ app.get("/api/health", (req, res) => {
 
 app.listen(PORT, async () => {
   await testDbConnection();
+  await testNodeMailConnection();
   console.log(`Server is listening on localhost:${PORT}`);
 });
