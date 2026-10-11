@@ -48,6 +48,9 @@ export default function Login() {
         {error && <p role="alert">{error}</p>}
       </form>
       <p>
+        Can't remember password? <Link to={"/forgot-password"}>Forgot Password</Link>
+      </p>
+      <p>
         Need an account? <Link to="/register">Register</Link>
       </p>
       <p>
