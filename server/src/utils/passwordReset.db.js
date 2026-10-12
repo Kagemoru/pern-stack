@@ -21,3 +21,33 @@ export async function deleteResetRequest(userId) {
     userId,
   ]);
 }
+
+export async function getCodeHashAndCountAttempt(userId) {
+  const { rows } = await pool.query(
+    `UPDATE users_password_reset_req
+      SET attempts = attempts + 1
+      WHERE id = $1
+        AND code_expires_at > NOW()
+        AND attempts < 5
+      RETURNING code_hash`,
+    [userId],
+  );
+
+  return rows[0]?.code_hash ?? null;
+}
+
+export async function saveResetToken(userId, tokenHash) {
+  const { rows } = await pool.query(
+    `UPDATE users_password_reset_req
+      SET code_expires_at = NOW(),
+        reset_token_hash = $2,
+        reset_token_expires_at = NOW() + INTERVAL '10 minutes'
+      WHERE id = $1
+        AND code_expires_at > NOW()
+        AND attempts <= 5
+      RETURNING id`,
+    [userId, tokenHash]
+  );
+
+  return Boolean(rows[0]);
+}
