@@ -3,8 +3,6 @@ import { findByEmail, createUser } from "../utils/users.db.js";
 import { signToken } from "../utils/jwt.js";
 import { COOKIE_OPTIONS, COOKIE_CLEAR_OPTIONS } from "../config/cookie.js";
 
-const genericMessage = "The provided email shall recieve a reset code.";
-
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body ?? {};
