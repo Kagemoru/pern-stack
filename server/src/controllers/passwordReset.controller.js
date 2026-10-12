@@ -1,7 +1,18 @@
 import { findByEmail } from "../utils/users.db.js";
-import { generateResetCode, hashResetCode } from "../utils/code.js";
-import { deleteResetRequest, saveResetCode } from "../utils/passwordReset.db.js";
 import { sendPasswordResetCode } from "../services/email.service.js";
+import {
+  generateResetCode,
+  generateResetToken,
+  hashResetCode,
+  hashResetToken,
+  verifyResetCode,
+} from "../utils/code.js";
+import {
+  deleteResetRequest,
+  getCodeHashAndCountAttempt,
+  saveResetCode,
+  saveResetToken,
+} from "../utils/passwordReset.db.js";
 
 const genericMessage = "The provided email shall recieve a reset code.";
 
@@ -38,7 +49,7 @@ export const requestPasswordReset = async (req, res) => {
       console.error("Password reset email failed:", error.message);
     }
 
-    return res.status(200).json({ message:genericMessage })
+    return res.status(200).json({ message: genericMessage });
   } catch (error) {
     console.error("Password reset request error:", error.message);
     return res.status(500).json({ message: "Unable to process request" });
@@ -58,12 +69,34 @@ export const verifyPasswordResetCode = async (req, res) => {
     }
 
     // find user
+    const user = await findByEmail(email);
 
-    // codeHash
+    // if not found
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "User do not exist or not found" });
+    }
+
+    // get codeHash
+    const codeHash = await getCodeHashAndCountAttempt(user.id);
+
+    // verify the code
+    if (!codeHash || !verifyResetCode(code, codeHash)) {
+      return res.status(400).json({ message: "Invalid or expired code" });
+    }
 
     // generate reset token for user
+    const resetToken = generateResetToken();
 
     // save the user's reset token in the database
+    const saved = await saveResetToken(user.id, hashResetToken(resetToken));
+
+    if (!saved) {
+      return res.status(400).json({ message: "Invalid or expired code" });
+    }
+
+    return res.status(200).json({ resetToken });
   } catch (error) {
     console.error("Code verification failed:", error.message);
     return res.status(500).json({ message: "Unable to verify code" });
