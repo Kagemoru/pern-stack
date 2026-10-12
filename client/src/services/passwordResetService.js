@@ -14,4 +14,8 @@ async function postResetRequest(path, body) {
   return data;
 }
 
-export const requestPasswordReset = (email) => postResetRequest("forgot-password", { email });
+export const requestPasswordReset = (email) =>
+  postResetRequest("forgot-password", { email });
+
+export const verifyPasswordResetCode = (email, code) =>
+  postResetRequest("verify-reset-code", { email, code });
