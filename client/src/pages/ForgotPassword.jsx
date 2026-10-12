@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import { requestPasswordReset } from "../services/passwordResetService.js";
 
 export default function ForgotPassword() {
   const [step, setStep] = useState(
@@ -20,6 +21,8 @@ export default function ForgotPassword() {
     try {
       if (step === "email") {
         console.log(`${email}, requests a password reset code`);
+        const result = await requestPasswordReset(email);
+        console.log(result.message);
         setStep("code");
       } else if (step === "code") {
         console.log(`${code}, code for confirming a password reset`);
