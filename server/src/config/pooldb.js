@@ -24,4 +24,14 @@ export const testDbConnection = async () => {
   }
 };
 
+export const CloseDbConnection = async () => {
+  try {
+    await pool.end();
+    console.log("Database closed.");
+  } catch (error) {
+    console.error("Failed to close database:", error);
+    throw error;
+  }
+};
+
 export default pool;

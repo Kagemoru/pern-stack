@@ -13,8 +13,19 @@ export const transporter = nodemailer.createTransport({
 export const testNodeMailConnection = async () => {
   try {
     await transporter.verify();
-    console.log("NodeMailer test: Connected to nodemailer successfully...")
+    console.log("Connected to nodemailer successfully...");
   } catch (error) {
-    console.error("NodeMailer test: Connection to nodemailer failed:", error);
+    console.error("Connection to nodemailer failed:", error);
   }
-}
+};
+
+export const CloseNodeMailConnection = async () => {
+  try {
+    transporter.close();
+    console.log("Nodemailer closed.");
+  } catch (error) {
+    console.error("Failed to close Nodemailer:", error);
+    throw error;
+  }
+};
+
