@@ -1,6 +1,9 @@
+import { findByEmail } from "../utils/users.db.js";
 import { generateResetCode, hashResetCode } from "../utils/code.js";
 import { deleteResetRequest, saveResetCode } from "../utils/passwordReset.db.js";
 import { sendPasswordResetCode } from "../services/email.service.js";
+
+const genericMessage = "The provided email shall recieve a reset code.";
 
 export const requestPasswordReset = async (req, res) => {
   try {
