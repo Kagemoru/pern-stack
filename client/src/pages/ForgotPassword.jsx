@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 
 export default function ForgotPassword() {
-  const [step, setStep] = useState("email");
+  const [step, setStep] = useState(
+    () => sessionStorage.getItem("forgotPasswordStep") || "email",
+  );
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -32,6 +34,14 @@ export default function ForgotPassword() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (step === "done") {
+      sessionStorage.removeItem("forgotPasswordStep");
+    } else {
+      sessionStorage.setItem("forgotPasswordStep", step);
+    }
+  }, [step]);
 
   return (
     <main>
@@ -81,9 +91,22 @@ export default function ForgotPassword() {
       )}
 
       {step === "done" ? (
-        <Link to="/login">Return to login</Link>
+        <Link
+          to="/login"
+          onClick={() => sessionStorage.removeItem("forgotPasswordStep")}
+        >
+          Return to login
+        </Link>
       ) : (
-        <p>Cancel password reset? Back to <Link to="/">Home Page</Link></p>
+        <p>
+          Cancel password reset? Back to{" "}
+          <Link
+            to="/"
+            onClick={() => sessionStorage.removeItem("forgotPasswordStep")}
+          >
+            Home Page
+          </Link>
+        </p>
       )}
     </main>
   );
