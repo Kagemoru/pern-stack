@@ -10,6 +10,7 @@ import {
 import {
   requestPasswordReset,
   verifyPasswordResetCode,
+  resetPassword,
 } from "../controllers/passwordReset.controller.js";
 
 const router = express.Router();
@@ -21,5 +22,6 @@ router.get("/profile", authenticate, profile);
 
 router.post("/forgot-password", authLimiter, requestPasswordReset);
 router.post("/verify-reset-code", authLimiter, verifyPasswordResetCode);
+router.post("/reset-password", authLimiter, resetPassword);
 
 export default router;
