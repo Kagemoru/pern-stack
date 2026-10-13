@@ -13,6 +13,7 @@ import {
   getCodeHashAndCountAttempt,
   saveResetCode,
   saveResetToken,
+  updatePasswordWithResetToken
 } from "../utils/passwordReset.db.js";
 
 const genericMessage = "The provided email shall recieve a reset code.";
@@ -104,7 +105,7 @@ export const verifyPasswordResetCode = async (req, res) => {
   }
 };
 
-export const resetPassword = async (params) => {
+export const resetPassword = async (req, res) => {
   try {
     const resetToken = String(req.body?.resetToken ?? "");
     const newPassword = String(req.body?.newPassword ?? "").trim();
