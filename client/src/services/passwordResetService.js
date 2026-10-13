@@ -19,3 +19,6 @@ export const requestPasswordReset = (email) =>
 
 export const verifyPasswordResetCode = (email, code) =>
   postResetRequest("verify-reset-code", { email, code });
+
+export const resetPassword = (resetToken, newPassword) =>
+  postResetRequest("reset-password", { resetToken, newPassword });
