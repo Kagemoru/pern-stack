@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import { requestPasswordReset, verifyPasswordResetCode } from "../services/passwordResetService";
+import {
+  requestPasswordReset,
+  verifyPasswordResetCode,
+  resetPassword,
+} from "../services/passwordResetService";
 
 export default function ForgotPassword() {
   const [step, setStep] = useState(
@@ -33,6 +37,8 @@ export default function ForgotPassword() {
         setStep("password");
       } else if (step === "password") {
         console.log(`${newPassword}, new password for ${email}`);
+        const result = await resetPassword(resetToken, newPassword);
+        console.log(result);
         setStep("done");
       }
     } catch (error) {
