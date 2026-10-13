@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { findByEmail } from "../utils/users.db.js";
 import { sendPasswordResetCode } from "../services/email.service.js";
 import {
@@ -105,5 +106,40 @@ export const verifyPasswordResetCode = async (req, res) => {
 
 export const resetPassword = async (params) => {
   try {
-  } catch (error) {}
+    const resetToken = String(req.body?.resetToken ?? "");
+    const newPassword = String(req.body?.newPassword ?? "").trim();
+
+    if (!/^[a-f0-9]{64}$/.test(resetToken)) {
+      return res
+        .status(400)
+        .json({ message: "Invalid or expired reset token" });
+    }
+
+    // confirm new password
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        message: "Password must be at least 8 characters",
+      });
+    }
+
+    // hash new password
+    const passwordHashed = await bcrypt.hash(newPassword, 10);
+
+    // update user password in db plus the reset token
+    const updated = await updatePasswordWithResetToken(
+      hashResetToken(resetToken),
+      passwordHashed,
+    );
+
+    if (!updated) {
+      return res
+        .status(400)
+        .json({ message: "Invalid or expired reset token" });
+    }
+
+    return res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Password reset failed:", error.message);
+    return res.status(500).json({ message: "Unable to reset password" });
+  }
 };
