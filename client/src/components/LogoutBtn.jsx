@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext.jsx";
 import { logout } from "../services/authService.js";
 
 export default function LogoutBtn() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { setAuthenticated } = useAuth();
 
   const handleLogout = async () => {
     setLoading(true);
@@ -13,6 +15,7 @@ export default function LogoutBtn() {
 
     try {
       await logout();
+      setAuthenticated(false)
       navigate("/", { replace: true });
     } catch (error) {
       setError(error.message);
