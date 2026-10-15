@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import DarkMode from "./DarkMode.jsx";
+import DarkModeBtn from "./DarkModeBtn.jsx";
 
 export default function Navbar({ darkMode, onToggleDarkMode}) {
   const [authenticated, setAuthenticated] = useState(null);
@@ -30,7 +30,7 @@ export default function Navbar({ darkMode, onToggleDarkMode}) {
         )}
 
         <li>
-          <DarkMode darkMode={darkMode} onToggle={onToggleDarkMode} />
+          <DarkModeBtn darkMode={darkMode} onToggle={onToggleDarkMode} />
         </li>
       </ul>
     </nav>

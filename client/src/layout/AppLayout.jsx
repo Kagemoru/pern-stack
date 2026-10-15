@@ -1,17 +1,11 @@
-import { useState } from "react";
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar.jsx";
 
-export default function AppLayout() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";
-  });
+// hooks
+import useDarkMode from "../hooks/useDarkMode.js";
 
-  function toggleDarkMode() {
-    const nextMode = !darkMode;
-    setDarkMode(nextMode);
-    localStorage.setItem("darkMode", String(nextMode));
-  }
+export default function AppLayout() {
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <div className={`app${darkMode ? " dark" : ""}`}>
@@ -21,9 +15,7 @@ export default function AppLayout() {
       <main>
         <Outlet />
       </main>
-      <footer>
-        
-      </footer>
+      <footer></footer>
     </div>
   );
 }
