@@ -3,20 +3,18 @@ import { Link } from "react-router";
 export default function Home() {
   return (
     <main>
-      <h1>Learning the PERN Stack</h1>
+      <h1>About</h1>
       <p>
-        This project is a learning exercise for building a simple
-        authentication app with PostgreSQL, Express, React, and Node.js.
+        This project is a hands-on learning exercise focused on building a
+        full-stack authentication application with PostgreSQL, Express.js,
+        React, and Node.js.
       </p>
       <p>
-        Users can register, log in, access a protected Home page, and log out.
+        It includes user registration, login and logout, a protected dashboard,
+        and a password reset flow using email verification codes. It also
+        explores REST API development, database integration, and communication
+        between a frontend and backend.
       </p>
-
-      <nav>
-        <Link to="/register">Register</Link>
-        {" | "}
-        <Link to="/login">Login</Link>
-      </nav>
     </main>
   );
 }

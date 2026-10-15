@@ -15,7 +15,16 @@ export default function AppLayout() {
       <main>
         <Outlet />
       </main>
-      <footer></footer>
+      <footer>
+        <a
+          href="https://github.com/Kagemoru/pern-stack"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View this project on GitHub"
+        >
+          GitHub repo
+        </a>
+      </footer>
     </div>
   );
 }
