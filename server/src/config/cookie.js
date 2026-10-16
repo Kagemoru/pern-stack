@@ -5,7 +5,7 @@ export const COOKIE_OPTIONS = {
   secure,
   sameSite: "lax",
   path: "/",
-  maxAge: 3 * 60 * 1000,
+  maxAge: 30 * 60 * 1000,
 };
 
 export const COOKIE_CLEAR_OPTIONS = {
