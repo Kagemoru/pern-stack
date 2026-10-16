@@ -111,7 +111,7 @@ export const login = async (req, res) => {
 
 export const profile = async (req, res) => {
   return res.status(200).json({
-    authenticated: true,
+    authenticated: Boolean(req.user),
     user: req.user,
   });
 };
