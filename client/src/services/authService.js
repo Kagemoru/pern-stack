@@ -52,5 +52,5 @@ export async function checkAuth() {
     throw new Error(data.message);
   }
 
-  return data.authenticated;
+  return Boolean(data.user);
 }
