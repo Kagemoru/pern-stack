@@ -1,9 +1,6 @@
 import { COOKIE_CLEAR_OPTIONS } from "../config/cookie.js";
 import { verifyToken } from "../utils/jwt.js";
 
-import { COOKIE_CLEAR_OPTIONS } from "../config/cookie.js";
-import { verifyToken } from "../utils/jwt.js";
-
 // Creates middleware that either allows anonymous requests or requires a valid token.
 function createAuthenticate({ required = false } = {}) {
   return function authenticate(req, res, next) {
