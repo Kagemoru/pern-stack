@@ -16,33 +16,34 @@ export default function ForgotPassword() {
   const [resetToken, setResetToken] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [msg, setMsg] = useState(
+    <>
+      <b>Note:</b> A password reset code will be sent to the email address you
+      provided.
+    </>,
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setMsg("");
 
     try {
       if (step === "email") {
-        console.log(`${email}, requests a password reset code`);
         const result = await requestPasswordReset(email);
-        console.log(result.message);
+        setMsg(result.message);
         setStep("code");
       } else if (step === "code") {
-        console.log(`${code}, code for confirming a password reset`);
         const result = await verifyPasswordResetCode(email, code);
-        console.log(result);
         setResetToken(result.resetToken);
         setStep("password");
       } else if (step === "password") {
-        console.log(`${newPassword}, new password for ${email}`);
         const result = await resetPassword(resetToken, newPassword);
-        console.log(result);
+        setMsg(`${result.message} You can now log in using your new password.`);
         setStep("done");
       }
     } catch (error) {
-      setError(error.message);
+      setMsg(error.message);
     } finally {
       setLoading(false);
     }
@@ -58,7 +59,7 @@ export default function ForgotPassword() {
 
   return (
     <div className="container forgot-password-container">
-      <h1>Reset Password</h1>
+      <h1 className="title">Reset Password</h1>
 
       {step !== "done" && (
         <form className="forgot-password-form" onSubmit={handleSubmit}>
@@ -101,23 +102,20 @@ export default function ForgotPassword() {
             </label>
           )}
 
-          <button type="submit">
+          <button type="submit" disabled={loading}>
             {loading ? "Please wait..." : "Continue"}
           </button>
         </form>
       )}
 
-      <p id="reset-password-note">
-        <b>Note:</b> A password reset code will be sent to the email address you
-        provided.
-      </p>
+      {msg && (
+        <p className="reset-password-msg" role="alert">
+          {msg}
+        </p>
+      )}
 
       {step === "done" ? (
         <>
-          <p id="reset-successfull-msg">
-            Your password has been successfully updated! You can now log in
-            using your new password.
-          </p>
           <br />
           <Link
             to="/login"

@@ -76,7 +76,6 @@
 .login-container,
 .register-container,
 .forgot-password-container {
-  box-sizing: border-box;
   width: min(100%, 28rem);
   min-height: auto;
   padding: 2.5rem;
@@ -84,7 +83,7 @@
 
 .login-container .title,
 .register-container .title,
-.forgot-password-form .title {
+.forgot-password-container .title {
   margin: 0 0 1.75rem;
 }
 
@@ -124,7 +123,7 @@
 .forgot-password-link,
 .register-link,
 .login-link,
-#reset-password-note {
+.reset-password-msg {
   font-size: 0.9rem;
   margin: 0;
   color: var(--secondary-text-color);
@@ -175,18 +174,11 @@
 
 @media (max-width: 600px) {
   .login-container,
-  .register-container {
+  .register-container,
+  .forgot-password-container {
     padding: 1.5rem;
   }
 }
-
-/* =====================================
-  FORGOT PASSWORD CONTAINER
-===================================== */
-#reset-successfull-msg {
-  text-align: center;
-}
-
 
 /* =====================================
   NOT FOUND CONTAINER
