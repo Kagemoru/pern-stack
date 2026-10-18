@@ -18,8 +18,7 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState(
     <>
-      <b>Note:</b> A password reset code will be sent to the email address you
-      provided.
+      <b>Note:</b> A password reset code will be sent to the email address you provide for the password reset process.
     </>,
   );
 
