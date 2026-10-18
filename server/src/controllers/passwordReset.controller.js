@@ -16,8 +16,6 @@ import {
   updatePasswordWithResetToken
 } from "../utils/passwordReset.db.js";
 
-const genericMessage = "The provided email shall recieve a reset code.";
-
 export const requestPasswordReset = async (req, res) => {
   try {
     const email = String(req.body?.email ?? "").trim();
@@ -51,7 +49,7 @@ export const requestPasswordReset = async (req, res) => {
       console.error("Password reset email failed:", error.message);
     }
 
-    return res.status(200).json({ message: genericMessage });
+    return res.status(200).json({ message: "The provided email shall recieve a reset code." });
   } catch (error) {
     console.error("Password reset request error:", error.message);
     return res.status(500).json({ message: "Unable to process request" });
@@ -138,7 +136,7 @@ export const resetPassword = async (req, res) => {
         .json({ message: "Invalid or expired reset token" });
     }
 
-    return res.status(200).json({ message: "Password reset successfully" });
+    return res.status(200).json({ message: "Password reset successfull!" });
   } catch (error) {
     console.error("Password reset failed:", error.message);
     return res.status(500).json({ message: "Unable to reset password" });
