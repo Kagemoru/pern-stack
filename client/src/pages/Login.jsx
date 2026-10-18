@@ -27,38 +27,48 @@ export default function Login() {
   };
 
   return (
-    <main>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input name="email" type="email" autoComplete="email" required />
-        </label>
-        <br />
-        <label>
-          Password
+    <div className="container login-container">
+      <h1 className="title">Login</h1>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label className="form-field">
+          Email:
           <input
-            name="password"
-            type="password"
-            autoComplete="current-password"
+            name="email"
+            type="email"
+            placeholder="user@example.com"
             required
           />
         </label>
-        <br />
-        <button type="submit">
+
+        <label className="form-field">
+          Password:
+          <input
+            name="password"
+            type="password"
+            placeholder="Your password"
+            required
+          />
+        </label>
+
+        <p className="forgot-password-link">
+          Can't remember password?{" "}
+          <Link to="/forgot-password">Forgot Password</Link>
+        </p>
+
+        <button type="submit" disabled={loading}>
           {loading ? "Signing in..." : "Sign in"}
         </button>
-        {error && <p role="alert">{error}</p>}
+
+        {error && (
+          <p className="login-error" role="alert">
+            {error}
+          </p>
+        )}
       </form>
-      <p>
-        Can't remember password? <Link to={"/forgot-password"}>Forgot Password</Link>
+
+      <p className="register-link">
+        Don't have an account? <Link to="/register">Register</Link>
       </p>
-      <p>
-        Need an account? <Link to="/register">Register</Link>
-      </p>
-      <p>
-        Back to <Link to="/">Home Page</Link>
-      </p>
-    </main>
+    </div>
   );
 }

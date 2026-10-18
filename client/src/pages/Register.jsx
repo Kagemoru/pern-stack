@@ -19,7 +19,7 @@ export default function Register() {
     try {
       await register(formData);
       setAuthenticated(true);
-      navigate("/dashboard", {replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -27,40 +27,48 @@ export default function Register() {
   };
 
   return (
-    <main>
-      <h1>Register</h1>
-      <form onSubmit={handleRegister}>
-        <label>
-          Username
-          <input name="username" autoComplete="username" required />
+    <div className="container register-container">
+      <h1 className="title">Register</h1>
+      <form className="register-form" onSubmit={handleRegister}>
+        <label className="form-field">
+          Username:
+          <input name="username" type="text" placeholder="user123" required />
         </label>
-        <br />
-        <label>
-          Email
-          <input name="email" type="email" autoComplete="email" required />
-        </label>
-        <br />
-        <label>
-          Password
+
+        <label className="form-field">
+          Email:
           <input
-            name="password"
-            type="password"
-            autoComplete="new-password"
+            name="email"
+            type="email"
+            placeholder="user@example.com"
             required
           />
         </label>
-        <br />
-        <button type="submit">
+
+        <label className="form-field">
+          Password:
+          <input
+            name="password"
+            type="password"
+            placeholder="Create a password"
+            required
+          />
+        </label>
+
+        <button type="submit" disabled={loading}>
           {loading ? "Registering..." : "Register"}
         </button>
-        {error && <p role="alert">{error}</p>}
+
+        {error && (
+          <p className="register-error" role="alert">
+            {error}
+          </p>
+        )}
       </form>
-      <p>
+
+      <p className="login-link">
         Already have an account? <Link to="/login">Login</Link>
       </p>
-      <p>
-        Back to <Link to="/">Home Page</Link>
-      </p>
-    </main>
+    </div>
   );
 }

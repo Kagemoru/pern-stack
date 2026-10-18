@@ -1,0 +1,211 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 500px;
+  padding: 30px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px
+    color-mix(in srgb, var(--primary-text-color) 8%, transparent);
+}
+
+.container a {
+  color: var(--red);
+  font-weight: 600;
+  text-underline-offset: 0.2em;
+}
+
+/* =====================================
+  HOME CONTAINER
+===================================== */
+.home-container {
+  align-items: stretch;
+  width: min(100%, 52rem);
+  min-height: auto;
+  padding: 2.5rem;
+}
+
+.home-container .title {
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--red);
+  text-align: center;
+}
+
+.project-details {
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.project-details ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin: 1.25rem 0 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.project-details li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+@media (max-width: 600px) {
+  .home-container {
+    padding: 1.5rem;
+  }
+
+  .project-details ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================
+  LOGIN, REGISTER, FORGOT-PASS CONTAINER
+===================================== */
+.login-container,
+.register-container,
+.forgot-password-container {
+  box-sizing: border-box;
+  width: min(100%, 28rem);
+  min-height: auto;
+  padding: 2.5rem;
+}
+
+.login-container .title,
+.register-container .title,
+.forgot-password-form .title {
+  margin: 0 0 1.75rem;
+}
+
+.login-form,
+.register-form,
+.forgot-password-form {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-weight: 600;
+}
+
+.form-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--primary-text-color);
+  background: var(--input-bg);
+  font: inherit;
+}
+
+.form-field input:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.forgot-password-link,
+.register-link,
+.login-link,
+#reset-password-note {
+  font-size: 0.9rem;
+  margin: 0;
+  color: var(--secondary-text-color);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.login-form button,
+.register-form button,
+.forgot-password-form button {
+  min-height: 2.9rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: var(--red);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-form button:hover:not(:disabled),
+.register-form button:hover:not(:disabled),
+.forgot-password-form button:hover:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.login-form button:disabled,
+.register-form button:disabled,
+.forgot-password-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.login-form button:focus-visible,
+.register-form button:focus-visible,
+.forgot-password-form button:focus-visible {
+  outline: 2px solid var(--primary-text-color);
+  outline-offset: 3px;
+}
+
+.login-error,
+.register-error {
+  text-align: center;
+  margin: 0;
+  color: var(--red);
+}
+
+@media (max-width: 600px) {
+  .login-container,
+  .register-container {
+    padding: 1.5rem;
+  }
+}
+
+/* =====================================
+  FORGOT PASSWORD CONTAINER
+===================================== */
+#reset-successfull-msg {
+  text-align: center;
+}
+
+
+/* =====================================
+  NOT FOUND CONTAINER
+===================================== */
+.not-found-container {
+  width: min(100%, 28rem);
+  min-height: auto;
+  gap: 0.75rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.not-found-container .title {
+  margin: 0;
+  color: var(--red);
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.not-found-container p {
+  margin: 0;
+}

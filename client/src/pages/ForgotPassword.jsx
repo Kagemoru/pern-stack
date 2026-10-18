@@ -57,42 +57,46 @@ export default function ForgotPassword() {
   }, [step]);
 
   return (
-    <main>
+    <div className="container forgot-password-container">
       <h1>Reset Password</h1>
 
       {step !== "done" && (
-        <form onSubmit={handleSubmit}>
+        <form className="forgot-password-form" onSubmit={handleSubmit}>
           {step === "email" && (
-            <label>
-              Email
+            <label className="form-field">
+              Email:
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
                 required
               />
             </label>
           )}
 
           {step === "code" && (
-            <label>
-              Code
+            <label className="form-field">
+              Code:
               <input
                 type="number"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
+                placeholder="Enter the code here"
                 required
               />
             </label>
           )}
 
           {step === "password" && (
-            <label>
-              New password
+            <label className="form-field">
+              New password:
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Set your new password"
+                required
               />
             </label>
           )}
@@ -103,13 +107,25 @@ export default function ForgotPassword() {
         </form>
       )}
 
+      <p id="reset-password-note">
+        <b>Note:</b> A password reset code will be sent to the email address you
+        provided.
+      </p>
+
       {step === "done" ? (
-        <Link
-          to="/login"
-          onClick={() => sessionStorage.removeItem("forgotPasswordStep")}
-        >
-          Return to login
-        </Link>
+        <>
+          <p id="reset-successfull-msg">
+            Your password has been successfully updated! You can now log in
+            using your new password.
+          </p>
+          <br />
+          <Link
+            to="/login"
+            onClick={() => sessionStorage.removeItem("forgotPasswordStep")}
+          >
+            Return to login
+          </Link>
+        </>
       ) : (
         <p>
           Cancel password reset? Back to{" "}
@@ -121,6 +137,6 @@ export default function ForgotPassword() {
           </Link>
         </p>
       )}
-    </main>
+    </div>
   );
 }
