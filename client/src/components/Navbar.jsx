@@ -8,7 +8,7 @@ export default function Navbar({ darkMode, onToggleDarkMode }) {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">
+      <Link to="/" className="nav-btn navbar-brand">
         <svg
           className="svg nav-pern-icon"
           viewBox="0 0 24 24"
@@ -33,7 +33,9 @@ export default function Navbar({ darkMode, onToggleDarkMode }) {
         {authenticated ? (
           <>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/dashboard">
+                <h2 className="nav-btn">Dashboard</h2>
+              </Link>
             </li>
             <li>
               <LogoutBtn />
@@ -43,12 +45,12 @@ export default function Navbar({ darkMode, onToggleDarkMode }) {
           <>
             <li>
               <Link to="/login">
-                <h2>Login</h2>
+                <h2 className="nav-btn">Login</h2>
               </Link>
             </li>
             <li>
               <Link to="/register">
-                <h2>Register</h2>
+                <h2 className="nav-btn">Register</h2>
               </Link>
             </li>
           </>

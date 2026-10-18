@@ -15,20 +15,22 @@ export default function LogoutBtn() {
 
     try {
       await logout();
-      setAuthenticated(false)
+      setAuthenticated(false);
       navigate("/", { replace: true });
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <div>
-      <button type="button" onClick={handleLogout} disabled={loading}>
-        {loading ? "Logging out..." : "Log out"}
-      </button>
-      {error && <p role="alert">{error}</p>}
-    </div>
+    <button
+      type="button"
+      className="nav-btn logout-btn"
+      onClick={handleLogout}
+      disabled={loading}
+    >
+      {loading ? "Logging out..." : "Logout"}
+    </button>
   );
 }
