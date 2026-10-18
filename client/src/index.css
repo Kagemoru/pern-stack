@@ -1,5 +1,6 @@
 :root {
   font-family: Montserrat, sans-serif;
+  font-size: 16px;
 
   --primary-text-color: #202124;
   --secondary-text-color: #4b4947;
@@ -15,7 +16,7 @@
 
 :root[data-theme="dark"] {
   --primary-text-color: #f5f5f5;
-  --secondary-text-color: #4b4947;
+  --secondary-text-color: #92908e;
   --page-bg: #121212;
   --card-bg: #2b2b2b;
   --foot-text-color: var(--page-bg);
@@ -26,7 +27,11 @@
   --muted: #aaa39b;
 }
 
-body {
+body,
+h1,
+h2,
+h3,
+h4 {
   margin: 0;
 }
 
@@ -59,10 +64,6 @@ main {
   padding: 50px;
 }
 
-/* .pern-app a {
-  color: inherit;
-} */
-
 .pern-app,
 .pern-app * {
   transition:
@@ -74,11 +75,6 @@ main {
 /* =====================================
   NAVIGATION BAR
 ===================================== */
-.navbar a {
-  color: var(--primary-text-color);
-  text-decoration: none;
-}
-
 .navbar {
   box-sizing: border-box;
   display: flex;
@@ -86,7 +82,7 @@ main {
   justify-content: space-between;
   width: 100%;
   max-width: 1250px;
-  margin: 0 auto;
+  margin: 1rem auto 0;
   padding: 20px;
 }
 
@@ -94,9 +90,11 @@ main {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.5rem;
 }
 
 .nav-pern-icon {
+  flex-shrink: 0;
   color: var(--primary-text-color);
 }
 
@@ -107,6 +105,33 @@ main {
   margin: 0;
   padding: 0;
   list-style: none;
+  font-size: 1rem;
+}
+
+.navbar a {
+  color: var(--primary-text-color);
+  text-decoration: none;
+}
+
+.nav-btn {
+  border-bottom: 2px solid transparent;
+  transition: border-color 1s ease;
+}
+
+.nav-btn:hover {
+  border-bottom-color: var(--red);
+}
+
+.logout-btn {
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: inherit;
+  background: none;
+  font: inherit;
+  font-size: 1.5em;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .dark-mode-toggle {
@@ -124,11 +149,14 @@ main {
   cursor: pointer;
 }
 
+.dark-mode-toggle:hover {
+  border-color: var(--red);
+}
+
 .dark-mode-toggle .svg {
   width: 24px;
   height: 24px;
 }
-
 
 /* =====================================
   FOOTER
@@ -165,6 +193,55 @@ footer {
 
 .footer-github-icon {
   color: var(--page-bg);
+}
+
+/* =====================================
+  MEDIA
+===================================== */
+@media (max-width: 800px) {
+  .navbar-brand h1 {
+    font-size: 1.5rem;
+  }
+
+  .navbar-links h2 {
+    font-size: 1.25rem;
+  }
+
+  main {
+    font-size: 0.95rem;
+    padding: 2rem;
+  }
+
+  main .project-details {
+    font-size: 1rem;
+  }
+
+  .footer-container {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-brand h1 {
+    font-size: 1.15rem;
+  }
+
+  .navbar-links h2 {
+    font-size: 0.9rem;
+  }
+
+  main {
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+
+  main .project-details {
+    font-size: 0.9rem;
+  }
+
+  .footer-container {
+    font-size: 0.85rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
