@@ -1,16 +1,12 @@
 import { transporter } from "../config/nodemailer.js";
 
 export async function sendPasswordResetCode(email, code) {
-  try {
-    const info = await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: email,
-      subject: "PERN STACK - Password reset code",
-      text: `Your password reset code is ${code}. It expires in 10 minutes.`,
-    });
+  const info = await transporter.sendMail({
+    from: process.env.SMTP_FROM,
+    to: email,
+    subject: "PERN STACK - Password reset code",
+    text: `Your password reset code is ${code}. It expires in 10 minutes.`,
+  });
 
-    console.log("Message sent:", info.messageId);
-  } catch (error) {
-    console.error("Error while sending email:", error);
-  }
+  console.log("Message sent:", info.messageId);
 }

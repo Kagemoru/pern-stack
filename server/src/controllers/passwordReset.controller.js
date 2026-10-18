@@ -13,7 +13,7 @@ import {
   getCodeHashAndCountAttempt,
   saveResetCode,
   saveResetToken,
-  updatePasswordWithResetToken
+  updatePasswordWithResetToken,
 } from "../utils/passwordReset.db.js";
 
 export const requestPasswordReset = async (req, res) => {
@@ -31,8 +31,11 @@ export const requestPasswordReset = async (req, res) => {
     // if not found
     if (!user) {
       return res
-        .status(401)
-        .json({ message: "User do not exist or not found" });
+        .status(200)
+        .json({
+          message:
+            "If an account exists for that email, reset instructions will be sent.",
+        });
     }
 
     // generate code for user
@@ -49,7 +52,9 @@ export const requestPasswordReset = async (req, res) => {
       console.error("Password reset email failed:", error.message);
     }
 
-    return res.status(200).json({ message: "The provided email shall recieve a reset code." });
+    return res
+      .status(200)
+      .json({ message: "The provided email shall recieve a reset code." });
   } catch (error) {
     console.error("Password reset request error:", error.message);
     return res.status(500).json({ message: "Unable to process request" });
