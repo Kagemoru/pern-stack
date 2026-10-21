@@ -1,5 +1,7 @@
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "";
+
 export async function login(credentials) {
-  const res = await fetch("/api/auth/login", {
+  const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -14,7 +16,7 @@ export async function login(credentials) {
 }
 
 export async function register(credentials) {
-  const res = await fetch("/api/auth/register", {
+  const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -29,7 +31,7 @@ export async function register(credentials) {
 }
 
 export async function logout() {
-  const res = await fetch("/api/auth/logout", {
+  const res = await fetch(`${API_BASE_URL}/api/auth/logout`, {
     method: "POST",
     credentials: "include",
   });
@@ -42,7 +44,7 @@ export async function logout() {
 }
 
 export async function checkAuth() {
-  const res = await fetch("/api/auth/profile", {
+  const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
     credentials: "include",
   });
 
