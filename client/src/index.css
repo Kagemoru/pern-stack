@@ -203,7 +203,8 @@ footer {
     font-size: 1.5rem;
   }
 
-  .navbar-links h2 {
+  .navbar-links h2,
+  .navbar-links .logout-btn {
     font-size: 1.25rem;
   }
 
@@ -226,7 +227,8 @@ footer {
     font-size: 1.15rem;
   }
 
-  .navbar-links h2 {
+  .navbar-links h2,
+  .navbar-links .logout-btn {
     font-size: 0.9rem;
   }
 
