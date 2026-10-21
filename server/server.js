@@ -18,6 +18,8 @@ const allowedOrigins = [
   process.env.CLIENT_ORIGIN,
 ].filter(Boolean);
 
+app.set("trust proxy", 1);
+
 // Middleware
 app.use(helmet());
 app.use(
