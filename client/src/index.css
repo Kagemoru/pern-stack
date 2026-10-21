@@ -91,7 +91,7 @@ main {
   align-items: center;
   gap: 0.5rem;
   font-size: 1.5rem;
-  margin: .75rem;
+  margin: 0.75rem;
 }
 
 .nav-pern-icon {
@@ -107,6 +107,11 @@ main {
   padding: 0;
   list-style: none;
   font-size: 1rem;
+}
+
+.navbar-brand-title {
+  width: max-content;
+  flex: 0 0 auto;
 }
 
 .navbar a {
@@ -252,6 +257,28 @@ footer {
 
   .footer-container {
     font-size: 0.85rem;
+  }
+
+  .dark-mode-toggle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dark-mode-toggle .svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 470px) {
+  .footer-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-brand h1 {
+    font-size: .95rem;
   }
 }
 
