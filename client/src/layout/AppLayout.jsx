@@ -19,7 +19,7 @@ export default function AppLayout() {
         <div className="footer-container">
           <div className="footer-section">
             <h4>
-              &copy; 2026{" "}
+              OCTOBER 2026 &copy; {" "}
               <a href="https://github.com/Kagemoru" target="_blank">
                 <p>Kagemoru</p>
               </a>
