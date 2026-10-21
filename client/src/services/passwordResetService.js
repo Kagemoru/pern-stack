@@ -1,5 +1,7 @@
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "";
+
 async function postResetRequest(path, body) {
-  const res = await fetch(`/api/auth/${path}`, {
+  const res = await fetch(`${API_BASE_URL}/api/auth/${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
