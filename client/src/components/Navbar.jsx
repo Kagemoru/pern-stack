@@ -8,7 +8,7 @@ export default function Navbar({ darkMode, onToggleDarkMode }) {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="nav-btn navbar-brand">
+      <Link to="/" className="navbar-brand">
         <svg
           className="svg nav-pern-icon"
           viewBox="0 0 24 24"
@@ -26,7 +26,7 @@ export default function Navbar({ darkMode, onToggleDarkMode }) {
             clipRule="evenodd"
           />
         </svg>
-        <h1>PERN STACK</h1>
+        <h1 className="nav-btn">PERN STACK</h1>
       </Link>
 
       <ul className="navbar-links">
