@@ -26,11 +26,13 @@ export default function LogoutBtn() {
   return (
     <button
       type="button"
-      className="nav-btn logout-btn"
+      className="logout-btn"
       onClick={handleLogout}
       disabled={loading}
     >
-      {loading ? "Logging out..." : "Logout"}
+      <h2 className="nav-btn">
+        {loading ? "Logging out..." : "Logout"}
+      </h2>
     </button>
   );
 }
