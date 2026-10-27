@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext.jsx";
-import { register } from "../services/authService";
+import { register } from "../services/authService.js";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ export default function Register() {
       navigate("/dashboard", { replace: true });
     } catch (error) {
       setError(error.message);
+    } finally {
       setLoading(false);
     }
   };

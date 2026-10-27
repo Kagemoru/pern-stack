@@ -4,7 +4,7 @@ import {
   requestPasswordReset,
   verifyPasswordResetCode,
   resetPassword,
-} from "../services/passwordResetService";
+} from "../services/passwordResetService.js";
 
 export default function ForgotPassword() {
   const [step, setStep] = useState(
