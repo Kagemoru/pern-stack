@@ -19,5 +19,5 @@ export const logout = () =>
 
 export const checkAuth = async () => {
   const data = await apiReq("/profile");
-  return Boolean(data.user);
+  return data.user ?? null;
 };

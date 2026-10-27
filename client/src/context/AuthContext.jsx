@@ -17,13 +17,19 @@ export function AuthProvider({ children }) {
     const loadAuthStatus = async () => {
       try {
         // Check whether the user is authenticated when the component mounts.
-        const isAuthenticated = await checkAuth();
+        const currentUser = await checkAuth();
 
         // Update the authentication state only if the component is still mounted.
-        if (isMounted) setAuthenticated(isAuthenticated);
+        if (isMounted) {
+          setUser(currentUser);
+          setAuthenticated(Boolean(currentUser));
+        }
       } catch {
         // If the authentication check fails, treat the user as unauthenticated.
-        if (isMounted) setAuthenticated(false);
+        if (isMounted) {
+          setUser(null);
+          setAuthenticated(false);
+        }
       }
     };
 
