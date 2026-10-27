@@ -1,37 +1,64 @@
 # PERN Stack App
 
-## About
+A full-stack web application built with PostgreSQL, Express, React, and Node.js. It supports account registration and sign-in, a protected dashboard, password recovery, and light and dark themes.
 
-A full-stack web application built with the PERN stack. It includes user registration, login and logout, a protected dashboard, and password recovery. The client also supports light and dark themes.
+## Features
 
-## Stack
+- Register and sign in with an email and password
+- Store passwords as bcrypt hashes
+- Authenticate sessions with an HTTP-only JWT cookie
+- Access a protected dashboard
+- Reset passwords by email
+- Switch between light and dark themes
 
-- **PostgreSQL** for the database
+## Tech Stack
+
+- **PostgreSQL** for data storage
 - **Express 5** and **Node.js** for the API
-- **React 19** and **React Router** for the client
-- **Vite** for client development and builds
+- **React 19**, **React Router**, and **Vite** for the client
 - **pg** for PostgreSQL access
 - **JWT** and **bcryptjs** for authentication
-- **Nodemailer** for email
+- **Nodemailer** for email delivery
 - **Helmet**, **CORS**, and **express-rate-limit** for API security and request handling
 
 ## Deployment
 
 - **Neon** for hosted PostgreSQL
-- **Render** for server deployment
-- **Vercel** for client deployment
+- **Render** for the server
+- **Vercel** for the client
+
+## API Endpoints
+
+All API endpoints are prefixed with `/api`.
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/health` | Check API availability |
+| `POST` | `/api/auth/register` | Create an account |
+| `POST` | `/api/auth/login` | Sign in |
+| `POST` | `/api/auth/logout` | Sign out |
+| `GET` | `/api/auth/profile` | Check the authenticated session |
+| `POST` | `/api/auth/forgot-password` | Request a password reset code |
+| `POST` | `/api/auth/verify-reset-code` | Verify a password reset code |
+| `POST` | `/api/auth/reset-password` | Set a new password |
 
 ## Local Setup
 
-### Prerequisites
+### 1. Clone the repository
 
-- Node.js and npm
-- A PostgreSQL database with SSL enabled. Neon is one option; the server’s database connection is configured to require SSL.
-- SMTP credentials if you want to test password recovery emails
+```bash
+git clone https://github.com/Kagemoru/pern-stack.git
+cd pern-stack
+```
 
-### 1. Set Up the Database
+### Branches
 
-Create a database, then connect to it with `psql` or your database client and run:
+- `main`: The PERN stack application.
+- `feature/core-functionality`: A working baseline with the app’s core features, intended as a starting point for anyone who wants to improve it or explore their own approach.
+
+### 2. Create the database
+
+Create a PostgreSQL database, connect to it, and create the application tables:
 
 ```sql
 CREATE TABLE IF NOT EXISTS users (
@@ -52,54 +79,34 @@ CREATE TABLE IF NOT EXISTS users_password_reset_req (
 );
 ```
 
-### 2. Configure the Backend
-
-Install dependencies and create the local environment file:
+### 3. Configure and install the server
 
 ```bash
 cd server
 npm install
-cp .env.example .env
 ```
 
-Edit `server/.env` and set your database connection string and secrets:
+Create `server/.env` and configure the database connection, secrets, and SMTP settings. See `server/.env.example` for the required variables.
 
-```env
-PORT=3000
-NODE_ENV=development
-JWT_SECRET=replace-with-a-long-random-secret
-RESET_TOKEN_SECRET=replace-with-another-long-random-secret
-DB_URL=your-ssl-enabled-postgresql-connection-string
-CLIENT_ORIGIN=http://localhost:5173
-```
-
-To test password recovery emails, also set the `SMTP_*` values in `server/.env`. Gmail users generally need an app password for `SMTP_PASS`. Registration and login can be tested without SMTP credentials; password recovery email delivery requires a working SMTP configuration.
-
-### 3. Configure the Frontend
-
-Install the frontend dependencies and set the local API URL:
+### 4. Configure and install the client
 
 ```bash
 cd ../client
 npm install
 ```
 
-Create `client/.env.local` with:
+Create `client/.env` and set the local API URL. See `client/.env.example` for the required variable.
 
-```env
-VITE_API_URL=http://localhost:3000
-```
+### 5. Start the app
 
-### 4. Start the App
-
-Run the backend in one terminal:
+In one terminal, start the backend:
 
 ```bash
 cd server
 npm start
 ```
 
-Run the frontend in another terminal:
+In a second terminal, start the frontend:
 
 ```bash
 cd client
@@ -107,75 +114,3 @@ npm run dev
 ```
 
 Open the local URL printed by Vite, usually `http://localhost:5173`. The backend health endpoint is available at `http://localhost:3000/api/health`.
-
-## Folder Structure
-
-### Frontend (`client/`)
-
-```text
-client/
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   │   ├── DarkModeBtn.jsx
-│   │   ├── LogoutBtn.jsx
-│   │   ├── Navbar.jsx
-│   │   └── ProtectedRoute.jsx
-│   ├── context/
-│   │   └── AuthContext.jsx
-│   ├── hooks/
-│   │   └── useDarkMode.js
-│   ├── layout/
-│   │   └── AppLayout.jsx
-│   ├── pages/
-│   │   ├── Dashboard.jsx
-│   │   ├── ForgotPassword.jsx
-│   │   ├── Home.jsx
-│   │   ├── Login.jsx
-│   │   ├── NotFound.jsx
-│   │   └── Register.jsx
-│   ├── services/
-│   │   ├── authService.js
-│   │   └── passwordResetService.js
-│   ├── App.css
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
-├── eslint.config.js
-├── index.html
-├── package.json
-└── vite.config.js
-```
-
-### Backend (`server/`)
-
-```text
-server/
-├── public/
-├── src/
-│   ├── config/
-│   │   ├── cookie.js
-│   │   ├── nodemailer.js
-│   │   └── pooldb.js
-│   ├── controllers/
-│   │   ├── auth.controller.js
-│   │   └── passwordReset.controller.js
-│   ├── middleware/
-│   │   ├── authenticate.js
-│   │   ├── authorize.js
-│   │   └── rateLimiter.js
-│   ├── routes/
-│   │   └── auth.route.js
-│   ├── services/
-│   │   └── email.service.js
-│   ├── templates/
-│   │   └── email.html
-│   └── utils/
-│       ├── code.js
-│       ├── jwt.js
-│       ├── passwordReset.db.js
-│       └── users.db.js
-├── package.json
-└── server.js
-```
