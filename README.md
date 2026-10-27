@@ -1,34 +1,64 @@
 # PERN Stack App
 
-A beginner-friendly starter app built with PostgreSQL, Express, React, and Node.js. It includes account authentication, password-reset flows, and a protected dashboard.
+A full-stack web application built with PostgreSQL, Express, React, and Node.js. It supports account registration and sign-in, a protected dashboard, password recovery, and light and dark themes.
 
 ## Features
 
 - Register and sign in with an email and password
 - Store passwords as bcrypt hashes
-- Authenticate with an HTTP-only JWT cookie
-- Protect the dashboard and log out
-- Request and verify a password-reset code, then set a new password
-- Toggle dark mode
-- Check API availability at `/api/health`
+- Authenticate sessions with an HTTP-only JWT cookie
+- Access a protected dashboard
+- Reset passwords by email
+- Switch between light and dark themes
 
-## Requirements
+## Tech Stack
 
-- Node.js and npm
-- PostgreSQL
-- SMTP credentials for password-reset emails
+- **PostgreSQL** for data storage
+- **Express 5** and **Node.js** for the API
+- **React 19**, **React Router**, and **Vite** for the client
+- **pg** for PostgreSQL access
+- **JWT** and **bcryptjs** for authentication
+- **Nodemailer** for email delivery
+- **Helmet**, **CORS**, and **express-rate-limit** for API security and request handling
 
-## Local setup
+## Deployment
 
-### 1. Create the database
+- **Neon** for hosted PostgreSQL
+- **Render** for the server
+- **Vercel** for the client
 
-In PostgreSQL, create a database. For example:
+## API Endpoints
 
-```sql
-CREATE DATABASE pern_db;
+All API endpoints are prefixed with `/api`.
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/health` | Check API availability |
+| `POST` | `/api/auth/register` | Create an account |
+| `POST` | `/api/auth/login` | Sign in |
+| `POST` | `/api/auth/logout` | Sign out |
+| `GET` | `/api/auth/profile` | Check the authenticated session |
+| `POST` | `/api/auth/forgot-password` | Request a password reset code |
+| `POST` | `/api/auth/verify-reset-code` | Verify a password reset code |
+| `POST` | `/api/auth/reset-password` | Set a new password |
+
+## Local Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Kagemoru/pern-stack.git
+cd pern-stack
 ```
 
-Connect to `pern_db`, then create the application tables:
+### Branches
+
+- `main`: The PERN stack application.
+- `feature/core-functionality`: A working baseline with the app’s core features, intended as a starting point for anyone who wants to improve it or explore their own approach.
+
+### 2. Create the database
+
+Create a PostgreSQL database, connect to it, and create the application tables:
 
 ```sql
 CREATE TABLE IF NOT EXISTS users (
@@ -49,31 +79,27 @@ CREATE TABLE IF NOT EXISTS users_password_reset_req (
 );
 ```
 
-### 2. Configure and install the server
+### 3. Configure and install the server
 
 ```bash
 cd server
 npm install
 ```
 
-Create `server/.env` and configure your database connection, secrets, and SMTP settings. See `server/.env.example` for the expected variables.
+Create `server/.env` and configure the database connection, secrets, and SMTP settings. See `server/.env.example` for the required variables.
 
-Keep your `.env` file private. Use strong, unique secrets and never commit real credentials.
-
-### 3. Configure and install the client
-
-In a new terminal:
+### 4. Configure and install the client
 
 ```bash
-cd client
+cd ../client
 npm install
 ```
 
-Create `client/.env` and set the local API URL. See `client/.env.example` for the expected variable.
+Create `client/.env` and set the local API URL. See `client/.env.example` for the required variable.
 
-### 4. Start the app
+### 5. Start the app
 
-Start the backend:
+In one terminal, start the backend:
 
 ```bash
 cd server
@@ -87,29 +113,4 @@ cd client
 npm run dev
 ```
 
-Open the local URL printed by the frontend development server.
-
-## API endpoints
-
-All endpoints are prefixed with `/api`.
-
-| Method | Path | Purpose |
-| --- | --- | --- |
-| `GET` | `/health` | Check API availability |
-| `POST` | `/auth/register` | Create an account |
-| `POST` | `/auth/login` | Sign in |
-| `POST` | `/auth/logout` | Sign out |
-| `GET` | `/auth/profile` | Check the authenticated session |
-| `POST` | `/auth/forgot-password` | Request a reset code |
-| `POST` | `/auth/verify-reset-code` | Verify a reset code |
-| `POST` | `/auth/reset-password` | Set a new password |
-
-## Frontend routes
-
-| Route | Purpose |
-| --- | --- |
-| `/` | Home |
-| `/register` | Create an account |
-| `/login` | Sign in |
-| `/forgot-password` | Reset a password |
-| `/dashboard` | Protected page; requires authentication |
+Open the local URL printed by Vite, usually `http://localhost:5173`. The backend health endpoint is available at `http://localhost:3000/api/health`.
