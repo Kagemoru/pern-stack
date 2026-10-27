@@ -1,56 +1,23 @@
-export async function login(credentials) {
-  const res = await fetch("/api/auth/login", {
+import apiReq from "./api.js";
+
+export const login = (credentials) =>
+  apiReq("/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
     body: JSON.stringify(credentials),
   });
 
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message);
-  }
-}
-
-export async function register(credentials) {
-  const res = await fetch("/api/auth/register", {
+export const register = (credentials) =>
+  apiReq("/register", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
     body: JSON.stringify(credentials),
   });
 
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message);
-  }
-}
-
-export async function logout() {
-  const res = await fetch("/api/auth/logout", {
+export const logout = () =>
+  apiReq("/logout", {
     method: "POST",
-    credentials: "include",
   });
 
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message);
-  }
-}
-
-export async function checkAuth() {
-  const res = await fetch("/api/auth/profile", {
-    credentials: "include",
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message);
-  }
-
+export const checkAuth = async () => {
+  const data = await apiReq("/profile");
   return data.authenticated;
-}
+};

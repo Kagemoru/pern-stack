@@ -1,24 +1,19 @@
-async function postResetRequest(path, body) {
-  const res = await fetch(`/api/auth/${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message);
-  }
-
-  return data;
-}
+import apiReq from "./api.js";
 
 export const requestPasswordReset = (email) =>
-  postResetRequest("forgot-password", { email });
+  apiReq("/forgot-password", {
+    method: "POST",
+    body: JSON.stringify({ email }),
+  });
 
 export const verifyPasswordResetCode = (email, code) =>
-  postResetRequest("verify-reset-code", { email, code });
+  apiReq("/verify-reset-code", {
+    method: "POST",
+    body: JSON.stringify({ email, code }),
+  });
 
 export const resetPassword = (resetToken, newPassword) =>
-  postResetRequest("reset-password", { resetToken, newPassword });
+  apiReq("/reset-password", {
+    method: "POST",
+    body: JSON.stringify({ resetToken, newPassword }),
+  });
