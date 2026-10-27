@@ -19,16 +19,18 @@
 }
 
 /* =====================================
-  HOME CONTAINER
+  HOME & DASHBOARD CONTAINER
 ===================================== */
-.home-container {
+.home-container,
+.dashboard-container {
   align-items: stretch;
   width: min(100%, 52rem);
   min-height: auto;
   padding: 2.5rem;
 }
 
-.home-container .title {
+.home-container .title,
+.dashboard-container .title {
   margin: 0 0 1.5rem;
   padding-bottom: 0.75rem;
   border-bottom: 2px solid var(--red);
@@ -67,6 +69,117 @@
 
   .project-details ul {
     grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================
+  DASHBOARD CONTAINER (practicing how to use css selectors)
+===================================== */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.dashboard-content section {
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--page-bg) 45%, var(--card-bg));
+}
+
+.dashboard-content section:first-child {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  border-color: color-mix(in srgb, var(--red) 35%, var(--border-color));
+  background:
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--red) 14%, transparent),
+      transparent 42%
+    ),
+    color-mix(in srgb, var(--red) 5%, var(--card-bg));
+}
+
+.dashboard-content h2 {
+  margin: 0 0 0.65rem;
+  font-size: 1.2rem;
+}
+
+.dashboard-content section:first-child h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.dashboard-content p {
+  margin: 0;
+  color: var(--secondary-text-color);
+  line-height: 1.6;
+}
+
+.dashboard-content section:nth-child(2) p {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  color: var(--primary-text-color);
+}
+
+.dashboard-content section:nth-child(2) p > .dashboard-avatar {
+  display: inline-flex;
+  flex: 0 0 2.75rem;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--red);
+  font-size: 1.2rem;
+}
+
+.dashboard-content section:nth-child(2) p > .dashboard-avatar strong {
+  font-weight: 700;
+}
+
+.dashboard-account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.dashboard-account-details > strong,
+.dashboard-account-details > span {
+  overflow-wrap: anywhere;
+  color: var(--secondary-text-color);
+  font-size: 0.9rem;
+}
+
+.dashboard-content section:last-child a {
+  display: inline-flex;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.dashboard-content a:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 700px) {
+  .dashboard-container {
+    padding: 1.5rem;
+  }
+
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-content section:first-child {
+    grid-column: auto;
+    padding: 1.5rem;
   }
 }
 

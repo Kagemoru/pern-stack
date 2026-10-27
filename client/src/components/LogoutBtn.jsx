@@ -6,13 +6,14 @@ import { logout } from "../services/authService.js";
 export default function LogoutBtn() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { setAuthenticated } = useAuth();
+  const { setAuthenticated, setUser } = useAuth();
 
   const handleLogout = async () => {
     setLoading(true);
 
     try {
       await logout();
+      setUser(null);
       setAuthenticated(false);
       navigate("/", { replace: true });
     } catch (error) {

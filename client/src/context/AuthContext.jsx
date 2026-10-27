@@ -9,6 +9,7 @@ const AuthContext = createContext();
 // so they can access and update the user's authentication status.
 export function AuthProvider({ children }) {
   const [authenticated, setAuthenticated] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -36,7 +37,7 @@ export function AuthProvider({ children }) {
 
   return (
     // Provide the authentication state and its updater to all child components.
-    <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+    <AuthContext.Provider value={{ authenticated, setAuthenticated, user, setUser }}>
       {children}
     </AuthContext.Provider>
   );

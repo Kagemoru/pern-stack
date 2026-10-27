@@ -7,7 +7,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { setAuthenticated } = useAuth();
+  const { setAuthenticated, setUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +17,8 @@ export default function Login() {
     const formData = Object.fromEntries(new FormData(e.currentTarget));
 
     try {
-      await login(formData);
+      const res = await login(formData);
+      setUser(res.user);
       setAuthenticated(true);
       navigate("/dashboard", { replace: true });
     } catch (error) {

@@ -7,7 +7,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { setAuthenticated } = useAuth();
+  const { setAuthenticated, setUser } = useAuth();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -17,7 +17,8 @@ export default function Register() {
     const formData = Object.fromEntries(new FormData(e.currentTarget));
 
     try {
-      await register(formData);
+      const res = await register(formData);
+      setUser(res.user)
       setAuthenticated(true);
       navigate("/dashboard", { replace: true });
     } catch (error) {
