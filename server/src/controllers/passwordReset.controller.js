@@ -30,12 +30,10 @@ export const requestPasswordReset = async (req, res) => {
 
     // if not found
     if (!user) {
-      return res
-        .status(200)
-        .json({
-          message:
-            "If an account exists for that email, reset instructions will be sent.",
-        });
+      return res.status(200).json({
+        message:
+          "If an account exists for that email, reset instructions will be sent.",
+      });
     }
 
     // generate code for user
@@ -58,7 +56,10 @@ export const requestPasswordReset = async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: "The provided email shall recieve a reset code." });
+      .json({
+        message:
+          "If an account exists for that email, reset instructions will be sent.",
+      });
   } catch (error) {
     console.error("Password reset request error:", error.message);
     return res.status(500).json({ message: "Unable to process request" });
