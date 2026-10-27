@@ -100,6 +100,7 @@ export default function ForgotPassword() {
           <button type="submit">
             {loading ? "Please wait..." : "Continue"}
           </button>
+          {error && <p role="alert">{error}</p>}
         </form>
       )}
 

@@ -13,7 +13,7 @@ import {
   getCodeHashAndCountAttempt,
   saveResetCode,
   saveResetToken,
-  updatePasswordWithResetToken
+  updatePasswordWithResetToken,
 } from "../utils/passwordReset.db.js";
 
 const genericMessage = "The provided email shall recieve a reset code.";
@@ -48,7 +48,11 @@ export const requestPasswordReset = async (req, res) => {
       await sendPasswordResetCode(email, code);
     } catch (error) {
       await deleteResetRequest(user.id);
-      console.error("Password reset email failed:", error.message);
+      console.error("Password reset email failed:", error);
+
+      return res.status(503).json({
+        message: "We couldn't send the reset email. Please try again later.",
+      });
     }
 
     return res.status(200).json({ message: genericMessage });
